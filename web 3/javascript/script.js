@@ -1,3 +1,4 @@
+
 function horaInversa(hora, minutos) {
     hora = hora % 12;
     var horaOpuesta = (hora + 6) % 12;

@@ -15,10 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($h < 0 || $h > 23 || $m < 0 || $m > 59) {
         $resultado = 'Datos inválidos';
     } else {
-        $h = $h % 12;
-        $h = ($h + 6) % 12;
-        if ($h == 0) $h = 12;
-        $resultado = 'Hora inversa: ' . $h . ':' . ($m < 10 ? '0'.$m : $m);
+        // invertir hora sobre 12: 1->11, 2->10, etc.
+        $h12 = $h % 12;
+        $inv_h = 12 - $h12;
+        if ($inv_h == 0) $inv_h = 12;
+        // invertir minutos sobre 60
+        $inv_m = 60 - $m;
+        if ($inv_m == 60) $inv_m = 0;
+        $resultado = 'Hora inversa: ' . $inv_h . ':' . ($inv_m < 10 ? '0'.$inv_m : $inv_m);
     }
 }
 ?>
